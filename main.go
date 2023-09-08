@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"net/http"
+	"os"
 	"time"
 )
 
@@ -19,13 +20,13 @@ func main() {
 
 		// Prepare the JSON response
 		response := map[string]interface{}{
-			"slack_name":     slackName,
-			"current_day":    currentTime.Weekday().String(),
-			"utc_time":       utcTime,
-			"track":          track,
+			"slack_name":      slackName,
+			"current_day":     currentTime.Weekday().String(),
+			"utc_time":        utcTime,
+			"track":           track,
 			"github_file_url": "https://github.com/Shiewhun/hng1/blob/main/main.go",
 			"github_repo_url": "https://github.com/Shiewhun/hng1",
-			"status_code":    200,
+			"status_code":     200,
 		}
 
 		// Convert the response to JSON
@@ -40,7 +41,13 @@ func main() {
 		w.Write(jsonResponse)
 	})
 
+	// Get the port number from the PORT environment variable, or use 8080 as a default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	// Start the HTTP server on port 8080
-	fmt.Println("Server listening on :8080")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server listening on :" + port)
+	http.ListenAndServe(":"+port, nil)
 }
