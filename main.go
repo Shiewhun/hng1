@@ -15,7 +15,7 @@ func main() {
 
 		// Get current UTC time with +/-2 minutes window
 		currentTime := time.Now().UTC()
-		utcTime := currentTime.Format("2023-09-08T17:21:40Z")
+		utcTime := currentTime.Format("2006-01-02T15:04:05Z")
 
 		// Prepare the JSON response
 		response := map[string]interface{}{
