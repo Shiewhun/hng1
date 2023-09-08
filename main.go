@@ -5,7 +5,6 @@ import (
 	"fmt"
 	"net/http"
 	"time"
-	"os"
 )
 
 func main() {
@@ -41,13 +40,7 @@ func main() {
 		w.Write(jsonResponse)
 	})
 
-	// Get the port number from the PORT environment variable, or use 8080 as a default
-	port := os.Getenv("PORT")
-	if port == "" {
-		port = "8080"
-	}
-
 	// Start the HTTP server on port 8080
-	fmt.Println("Server listening on :" + port)
-	http.ListenAndServe(":"+port, nil)
+	fmt.Println("Server listening on :8080")
+	http.ListenAndServe(":8080", nil)
 }
