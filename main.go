@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net/http"
 	"time"
+	"os"
 )
 
 func main() {
@@ -15,7 +16,7 @@ func main() {
 
 		// Get current UTC time with +/-2 minutes window
 		currentTime := time.Now().UTC()
-		utcTime := currentTime.Format("2006-01-02T15:04:05Z")
+		utcTime := currentTime.Format("2023-09-08T17:21:40Z")
 
 		// Prepare the JSON response
 		response := map[string]interface{}{
@@ -23,8 +24,8 @@ func main() {
 			"current_day":    currentTime.Weekday().String(),
 			"utc_time":       utcTime,
 			"track":          track,
-			"github_file_url": "https://github.com/username/repo/blob/main/file_name.ext",
-			"github_repo_url": "https://github.com/username/repo",
+			"github_file_url": "https://github.com/Shiewhun/hng1/blob/main/main.go",
+			"github_repo_url": "https://github.com/Shiewhun/hng1",
 			"status_code":    200,
 		}
 
@@ -40,7 +41,13 @@ func main() {
 		w.Write(jsonResponse)
 	})
 
+	// Get the port number from the PORT environment variable, or use 8080 as a default
+	port := os.Getenv("PORT")
+	if port == "" {
+		port = "8080"
+	}
+
 	// Start the HTTP server on port 8080
-	fmt.Println("Server listening on :8080...")
-	http.ListenAndServe(":8080", nil)
+	fmt.Println("Server listening on :" + port)
+	http.ListenAndServe(":"+port, nil)
 }
